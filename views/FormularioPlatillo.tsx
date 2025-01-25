@@ -2,7 +2,6 @@ import React, {useContext, useState} from 'react';
 import {StyleSheet, View, TextInput} from 'react-native';
 import {Button, FAB as FabIcon, Text, Title} from 'react-native-paper';
 import {formatearCantidad} from '../helpers';
-import globalStyles from '../styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../types';
 import PedidoContext from '../context/pedidos/pedidosContext';

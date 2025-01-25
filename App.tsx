@@ -29,33 +29,33 @@ function App(): React.JSX.Element {
             <Stack.Screen
               name={'NuevaOrden'}
               component={NuevaOrden}
-              options={{title: 'Nueva Orden'}}
+              options={{title: 'Orden'}}
             />
             <Stack.Screen
               name={'Menu'}
               component={Menu}
-              options={{title: 'Nuestro Menu'}}
+              options={{title: 'Menu'}}
             />
 
             <Stack.Screen
               name={'DetallePlatillo'}
               component={DetallePlatillo}
-              options={{title: 'Detalle Platillo'}}
+              options={{title: 'Detalle'}}
             />
             <Stack.Screen
               name={'FormularioPlatillo'}
               component={FormularioPlatillo}
-              options={{title: 'Ordenar Platillo'}}
+              options={{title: 'Ordenar'}}
             />
             <Stack.Screen
               name={'ResumenPedido'}
               component={ResumenPedido}
-              options={{title: 'Resumen Pedido'}}
+              options={{title: 'Resumen'}}
             />
             <Stack.Screen
               name={'ProgresoPedido'}
               component={ProgresoPedido}
-              options={{title: 'Progreso Pedido'}}
+              options={{title: 'Progreso'}}
             />
           </Stack.Navigator>
         </NavigationContainer>
