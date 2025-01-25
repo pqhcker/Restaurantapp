@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {StyleSheet, View, TextInput, Pressable, Alert} from 'react-native';
 import {FAB as FabIcon, Text, Title} from 'react-native-paper';
-import {formatearCantidad} from '../helpers';
+import {formatearCantidad, generarId} from '../helpers';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../types';
 import PedidoContext from '../context/pedidos/pedidosContext';
@@ -58,6 +58,7 @@ const FormularioPlatillo = (): React.JSX.Element => {
               ...platillo,
               cantidad: quantity,
               total: subtotal,
+              idPedido: generarId(),
             };
             guardarPedido(pedido);
             navigation.navigate('ResumenPedido');

@@ -70,7 +70,7 @@ const ResumenPedido = (): React.JSX.Element => {
       <Title style={styles.title}>Resumen Pedido</Title>
       <ScrollView>
         {pedido.map((pedido: Pedido, index: number) => (
-          <Card key={pedido.id + index} style={styles.card}>
+          <Card key={pedido.idPedido} style={styles.card}>
             <View style={styles.itemContainer}>
               <Card.Cover source={{uri: pedido.imagen}} style={styles.image} />
               <View style={styles.itemDetails}>
@@ -83,7 +83,7 @@ const ResumenPedido = (): React.JSX.Element => {
             </View>
             <Button
               mode="contained"
-              onPress={() => confirmarEliminacion(pedido.id)}
+              onPress={() => confirmarEliminacion(pedido.idPedido)}
               buttonColor="red"
               textColor="white"
               style={styles.removeButton}>

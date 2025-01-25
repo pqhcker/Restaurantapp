@@ -21,7 +21,7 @@ const PedidosReducer = (state: any, action: ActionType) => {
       return {
         ...state,
         pedido: state.pedido.filter(
-          (pedido: any) => pedido.id !== action.payload,
+          (pedido: any) => pedido.idPedido !== action.payload,
         ),
       };
     default:

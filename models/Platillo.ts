@@ -8,6 +8,7 @@ export interface Platillo {
 }
 
 export interface Pedido extends Platillo {
+    idPedido: string;
     cantidad: number;
     total: number;
 }
