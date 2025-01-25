@@ -6,6 +6,7 @@ import firebase from '../../firebase';
 
 import {collection, onSnapshot, query, where} from 'firebase/firestore';
 import {ActionTypes} from '../../types';
+import _ from 'lodash';
 
 const FirebaseState = ({children}: any) => {
   const initialState = {
@@ -28,6 +29,9 @@ const FirebaseState = ({children}: any) => {
           ...doc.data(),
         };
       });
+      // Ordenar por categoría con lodash
+      platillos = _.sortBy(platillos, 'categoria');
+
       dispatch({
         action: ActionTypes.OBTENER_PRODUCTOS_EXITO,
         payload: platillos,
