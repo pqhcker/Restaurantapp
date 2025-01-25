@@ -3,7 +3,7 @@ import React, {useReducer} from 'react';
 import PedidosReducer from './pedidosReducer';
 import PedidoContext from './pedidosContext';
 import {ActionTypes} from '../../types';
-import {Platillo} from '../../models/Platillo';
+import {Pedido, Platillo} from '../../models/Platillo';
 
 const PedidoState = ({children}: any) => {
   const initialState = {
@@ -22,12 +22,21 @@ const PedidoState = ({children}: any) => {
     });
   };
 
+  //Cuando el usuario confirma un platillo
+  const guardarPedido = (pedido: Pedido) => {
+    dispatch({
+      action: ActionTypes.CONFIRMAR_ORDENAR_PLATILLO,
+      payload: pedido,
+    });
+  };
+
   return (
     <PedidoContext.Provider
       value={{
         pedido: state.pedido,
         platillo: state.platillo,
         seleccionarPlatillo,
+        guardarPedido,
       }}>
       {children}
     </PedidoContext.Provider>

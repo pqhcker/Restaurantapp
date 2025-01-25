@@ -1,14 +1,16 @@
 import React, {useContext, useState} from 'react';
-import {StyleSheet, View, TextInput} from 'react-native';
-import {Button, FAB as FabIcon, Text, Title} from 'react-native-paper';
+import {StyleSheet, View, TextInput, Pressable, Alert} from 'react-native';
+import {FAB as FabIcon, Text, Title} from 'react-native-paper';
 import {formatearCantidad} from '../helpers';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../types';
 import PedidoContext from '../context/pedidos/pedidosContext';
+import globalStyles from '../styles';
+import {Pedido} from '../models/Platillo';
 
 const FormularioPlatillo = (): React.JSX.Element => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const {platillo} = useContext(PedidoContext);
+  const {platillo, guardarPedido} = useContext(PedidoContext);
 
   const pricePerUnit = Number(platillo.precio); // Price for one unit
   const [quantity, setQuantity] = useState(1); // Initial quantity
@@ -42,6 +44,33 @@ const FormularioPlatillo = (): React.JSX.Element => {
     }
   };
 
+  const confirmarOrden = () => {
+    Alert.alert(
+      '¿Deseas confirmar tu pedido?',
+      `Un platillo de ${platillo.nombre} por un total de ${formatearCantidad(
+        subtotal,
+      )}`,
+      [
+        {
+          text: 'Confirmar',
+          onPress: () => {
+            const pedido: Pedido = {
+              ...platillo,
+              cantidad: quantity,
+              total: subtotal,
+            };
+            guardarPedido(pedido);
+            navigation.navigate('ResumenPedido');
+          },
+        },
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+      ],
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Title style={styles.title}>Cantidad</Title>
@@ -71,14 +100,11 @@ const FormularioPlatillo = (): React.JSX.Element => {
       </Text>
 
       <View style={styles.footer}>
-        <Button
-          mode="contained"
-          onPress={() => console.log(`Added ${quantity} items to the order`)}
-          buttonColor="#FFEB3B"
-          textColor="black"
-          style={styles.addButton}>
-          AGREGAR AL PEDIDO
-        </Button>
+        <Pressable
+          style={[globalStyles.btn, styles.button]}
+          onPress={() => confirmarOrden()}>
+          <Text style={globalStyles.btnTexto}>Ordenar Platillo</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -128,6 +154,11 @@ const styles = StyleSheet.create({
   addButton: {
     paddingVertical: 10,
     borderRadius: 8,
+  },
+  button: {
+    width: '100%',
+    borderRadius: 8,
+    paddingVertical: 20,
   },
 });
 

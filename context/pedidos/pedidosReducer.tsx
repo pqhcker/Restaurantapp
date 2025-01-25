@@ -7,6 +7,11 @@ const PedidosReducer = (state: any, action: ActionType) => {
         ...state,
         platillo: action.payload,
       };
+    case ActionTypes.CONFIRMAR_ORDENAR_PLATILLO:
+      return {
+        ...state,
+        pedido: [...state.pedido, action.payload],
+      };
     default:
       return state;
   }

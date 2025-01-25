@@ -6,3 +6,8 @@ export interface Platillo {
     precio: string;
     categoria: string;
 }
+
+export interface Pedido extends Platillo {
+    cantidad: number;
+    total: number;
+}
