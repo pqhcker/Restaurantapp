@@ -2,7 +2,7 @@ import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import globalStyles from '../styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../types/routeStack';
+import {RootStackParamList} from '../types';
 
 const NuevaOrden = (): React.JSX.Element => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
