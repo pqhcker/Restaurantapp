@@ -1,11 +1,14 @@
 import React, {useContext} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 import PedidoContext from '../context/pedidos/pedidosContext';
-import {Card, Title, Paragraph, Button, Text} from 'react-native-paper';
+import {Card, Title, Paragraph, Text} from 'react-native-paper';
 import {formatearCantidad} from '../helpers';
 import globalStyles from '../styles';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../types';
 
 const DetallePlatillo = (): React.JSX.Element => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {platillo} = useContext(PedidoContext);
 
   return (
@@ -24,7 +27,9 @@ const DetallePlatillo = (): React.JSX.Element => {
         </Card.Content>
       </Card>
 
-      <Pressable style={[globalStyles.btn, styles.button]}>
+      <Pressable
+        style={[globalStyles.btn, styles.button]}
+        onPress={() => navigation.navigate('FormularioPlatillo')}>
         <Text style={globalStyles.btnTexto}>Ordenar Platillo</Text>
       </Pressable>
     </View>

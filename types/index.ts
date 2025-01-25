@@ -2,7 +2,7 @@ export type RootStackParamList = {
     NuevaOrden: undefined;
     Menu: undefined;
     DetallePlatillo: undefined;
-    FormularioPlatillo: { platillo: string; id: string; precio: number };
+    FormularioPlatillo: undefined;
     ResumenPedido: undefined;
     ProgresoPedido: { id: string };
 }
