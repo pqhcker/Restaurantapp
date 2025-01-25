@@ -12,3 +12,11 @@ export interface Pedido extends Platillo {
     cantidad: number;
     total: number;
 }
+
+export interface PedidoCompleto {
+    tiempoEntrega: number;
+    completado: boolean;
+    total: number;
+    orden: Pedido[];
+    creado: number;
+}

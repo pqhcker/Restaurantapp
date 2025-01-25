@@ -6,12 +6,14 @@ import globalStyles from '../styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../types';
 import PedidoContext from '../context/pedidos/pedidosContext';
-import {Pedido} from '../models/Platillo';
+import {Pedido, PedidoCompleto} from '../models/Platillo';
 import {ScrollView} from 'react-native-gesture-handler';
+import firebase from '../firebase';
+import {collection, addDoc} from 'firebase/firestore';
 
 const ResumenPedido = (): React.JSX.Element => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const {pedido, totalPagar, mostrarResumen, eliminaArticulo} =
+  const {pedido, totalPagar, mostrarResumen, eliminaArticulo, pedidoRealizado} =
     useContext(PedidoContext);
 
   useEffect(() => {
@@ -34,7 +36,29 @@ const ResumenPedido = (): React.JSX.Element => {
       [
         {
           text: 'Confirmar',
-          onPress: () => {
+          onPress: async () => {
+            //Escribir en firebase
+
+            const pedidoObj: PedidoCompleto = {
+              tiempoEntrega: 0,
+              completado: false,
+              total: totalPagar,
+              orden: pedido,
+              creado: Date.now(),
+            };
+            //console.log(pedidoObj);
+
+            try {
+              const docRef = await addDoc(
+                collection(firebase.db, 'ordenes'),
+                pedidoObj,
+              );
+              pedidoRealizado(docRef.id);
+              //console.log('Document written with ID: ', docRef.id);
+            } catch (e) {
+              console.error('Error adding document: ', e);
+            }
+
             navigation.navigate('ProgresoPedido');
           },
         },

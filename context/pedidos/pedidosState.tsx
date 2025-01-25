@@ -10,6 +10,7 @@ const PedidoState = ({children}: any) => {
     pedido: [],
     platillo: null,
     totalPagar: 0,
+    idPedidoFB: '',
   };
 
   //useReducer
@@ -45,16 +46,25 @@ const PedidoState = ({children}: any) => {
     });
   };
 
+  const pedidoRealizado = (id: string) => {
+    dispatch({
+      action: ActionTypes.PEDIDO_ORDENADO,
+      payload: id,
+    });
+  };
+
   return (
     <PedidoContext.Provider
       value={{
         pedido: state.pedido,
         platillo: state.platillo,
         totalPagar: state.totalPagar,
+        idPedidoFB: state.idPedidoFB,
         seleccionarPlatillo,
         guardarPedido,
         mostrarResumen,
         eliminaArticulo,
+        pedidoRealizado,
       }}>
       {children}
     </PedidoContext.Provider>

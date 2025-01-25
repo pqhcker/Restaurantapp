@@ -24,6 +24,13 @@ const PedidosReducer = (state: any, action: ActionType) => {
           (pedido: any) => pedido.idPedido !== action.payload,
         ),
       };
+    case ActionTypes.PEDIDO_ORDENADO:
+      return {
+        ...state,
+        pedido: [],
+        totalPagar: 0,
+        idPedidoFB: action.payload,
+      };
     default:
       return state;
   }
