@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import globalStyles from '../styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../types';
@@ -8,11 +8,13 @@ import firebase from '../firebase';
 import {doc, onSnapshot} from 'firebase/firestore';
 import {PedidoCompleto} from '../models/Platillo';
 import Countdown from 'react-countdown';
+import {Button} from 'react-native-paper';
 
 const ProgresoPedido = (): React.JSX.Element => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {idPedidoFB} = useContext(PedidoContext);
   const [tiempo, setTiempo] = useState(0);
+  const [completado, setCompletado] = useState(false);
 
   useEffect(() => {
     try {
@@ -22,6 +24,7 @@ const ProgresoPedido = (): React.JSX.Element => {
         if (data) {
           const orden: PedidoCompleto = data as PedidoCompleto;
           setTiempo(orden.tiempoEntrega);
+          setCompletado(orden.completado);
         }
       });
 
@@ -52,7 +55,7 @@ const ProgresoPedido = (): React.JSX.Element => {
             </Text>
           </>
         )}
-        {tiempo > 0 && (
+        {!completado && tiempo > 0 && (
           <>
             <Text style={{textAlign: 'center', fontSize: 20, marginTop: 20}}>
               Su pedido estará listo en:
@@ -63,6 +66,21 @@ const ProgresoPedido = (): React.JSX.Element => {
                 renderer={renderer}
               />
             </Text>
+          </>
+        )}
+        {completado && (
+          <>
+            <Text style={styles.textoCompleatado}>Orden Lista</Text>
+            <Text style={styles.textoCompleatado}>
+              Por favor, pase a recoger su pedido
+            </Text>
+            <Pressable
+              style={[globalStyles.btn, {marginTop: 100}]}
+              onPress={() => navigation.navigate('NuevaOrden')}>
+              <Text style={globalStyles.btnTexto}>
+                Comenzar una nueva orden
+              </Text>
+            </Pressable>
           </>
         )}
       </View>
@@ -76,6 +94,12 @@ const styles = StyleSheet.create({
     fontSize: 60,
     textAlign: 'center',
     marginTop: 20,
+  },
+  textoCompleatado: {
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    margin: 20,
+    fontSize: 25,
   },
 });
 
