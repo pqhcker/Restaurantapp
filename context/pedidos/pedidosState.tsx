@@ -9,6 +9,7 @@ const PedidoState = ({children}: any) => {
   const initialState = {
     pedido: [],
     platillo: null,
+    totalPagar: 0,
   };
 
   //useReducer
@@ -30,13 +31,30 @@ const PedidoState = ({children}: any) => {
     });
   };
 
+  const mostrarResumen = (total: number) => {
+    dispatch({
+      action: ActionTypes.MOSTRAR_RESUMEN,
+      payload: total,
+    });
+  };
+
+  const eliminaArticulo = (id: string) => {
+    dispatch({
+      action: ActionTypes.ELIMINAR_PRODUCTO,
+      payload: id,
+    });
+  };
+
   return (
     <PedidoContext.Provider
       value={{
         pedido: state.pedido,
         platillo: state.platillo,
+        totalPagar: state.totalPagar,
         seleccionarPlatillo,
         guardarPedido,
+        mostrarResumen,
+        eliminaArticulo,
       }}>
       {children}
     </PedidoContext.Provider>

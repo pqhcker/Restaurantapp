@@ -12,6 +12,18 @@ const PedidosReducer = (state: any, action: ActionType) => {
         ...state,
         pedido: [...state.pedido, action.payload],
       };
+    case ActionTypes.MOSTRAR_RESUMEN:
+      return {
+        ...state,
+        totalPagar: action.payload,
+      };
+    case ActionTypes.ELIMINAR_PRODUCTO:
+      return {
+        ...state,
+        pedido: state.pedido.filter(
+          (pedido: any) => pedido.id !== action.payload,
+        ),
+      };
     default:
       return state;
   }

@@ -9,6 +9,7 @@ import DetallePlatillo from './views/DetallePlatillo';
 import FormularioPlatillo from './views/FormularioPlatillo';
 import ResumenPedido from './views/ResumenPedido';
 import ProgresoPedido from './views/ProgresoPedido';
+import BotonResumen from './components/ui/BotonResumen';
 
 import FirebaseState from './context/firebase/firebaseState';
 import PedidoState from './context/pedidos/pedidosState';
@@ -34,7 +35,7 @@ function App(): React.JSX.Element {
             <Stack.Screen
               name={'Menu'}
               component={Menu}
-              options={{title: 'Menu'}}
+              options={{title: 'Menu', headerRight: () => <BotonResumen />}}
             />
 
             <Stack.Screen
