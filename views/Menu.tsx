@@ -1,14 +1,19 @@
-import React, {useContext, useEffect, Fragment} from 'react';
+import React, {useContext, useEffect, Fragment, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import FirebaseContext from '../context/firebase/firebaseContext';
+import PedidoContext from '../context/pedidos/pedidosContext';
 import globalStyles from '../styles';
-import {FlatList, ScrollView} from 'react-native-gesture-handler';
+import {FlatList, Pressable, ScrollView} from 'react-native-gesture-handler';
 import {Card, Divider, List, Subheading, Title} from 'react-native-paper';
 import {Platillo} from '../models/Platillo';
 import {formatearCantidad} from '../helpers';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../types';
 
 const Menu = (): React.JSX.Element => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {menu, obtenerProductos} = useContext(FirebaseContext);
+  const {seleccionarPlatillo} = useContext(PedidoContext);
 
   useEffect(() => {
     obtenerProductos();
@@ -35,7 +40,14 @@ const Menu = (): React.JSX.Element => {
           {menu.map((platillo: Platillo, index: number) => (
             <Fragment key={platillo.id}>
               {mostrarHeading(platillo.categoria, index)}
-              <Card key={platillo.id} style={{margin: 10}}>
+
+              <Card
+                key={platillo.id}
+                style={styles.card}
+                onPress={() => {
+                  seleccionarPlatillo(platillo);
+                  navigation.navigate('DetallePlatillo');
+                }}>
                 <Card.Cover source={{uri: platillo.imagen}} />
                 <Card.Content>
                   <Title>{platillo.nombre}</Title>
@@ -67,6 +79,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     padding: 5,
     marginLeft: 8,
+  },
+  card: {
+    margin: 10,
+  },
+  cardPressed: {
+    backgroundColor: '#ddd',
   },
 });
 

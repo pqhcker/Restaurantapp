@@ -5,7 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import NuevaOrden from './views/NuevaOrden';
 import Menu from './views/Menu';
-import DetallePedido from './views/DetallePlatillo';
+import DetallePlatillo from './views/DetallePlatillo';
 import FormularioPlatillo from './views/FormularioPlatillo';
 import ResumenPedido from './views/ResumenPedido';
 import ProgresoPedido from './views/ProgresoPedido';
@@ -38,8 +38,8 @@ function App(): React.JSX.Element {
             />
 
             <Stack.Screen
-              name={'DetallePedido'}
-              component={DetallePedido}
+              name={'DetallePlatillo'}
+              component={DetallePlatillo}
               options={{title: 'Detalle Platillo'}}
             />
             <Stack.Screen
