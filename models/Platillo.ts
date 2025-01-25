@@ -3,6 +3,6 @@ export interface Platillo {
     nombre: string;
     imagen: string;
     descripcion: string;
-    precio: number;
+    precio: string;
     categoria: string;
 }
